@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>射箭運動的種類 | Archery Disciplines</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gold: #F5C842;
+      --gold-light: #FFE485;
+      --navy: #0A1628;
+      --navy-mid: #112240;
+      --navy-light: #1E3A5F;
+      --teal: #00B4D8;
+      --teal-dark: #0077A8;
+      --white: #F0F4FF;
+      --gray: #8899BB;
+      --accent-red: #E63946;
+      --accent-green: #2DC653;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Noto Sans TC', 'Inter', sans-serif;
+      background: var(--navy);
+      color: var(--white);
+      overflow: hidden;
+      height: 100vh;
+      width: 100vw;
+    }
+
+    /* ── SLIDESHOW CONTAINER ── */
+    .slideshow {
+      width: 100%;
+      height: 100vh;
+      position: relative;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 60px 80px;
+      opacity: 0;
+      transform: translateX(60px);
+      transition: opacity 0.55s cubic-bezier(.4,0,.2,1), transform 0.55s cubic-bezier(.4,0,.2,1);
+      pointer-events: none;
+    }
+
+    .slide.active {
+      opacity: 1;
+      transform: translateX(0);
+      pointer-events: all;
+    }
+
+    .slide.exit {
+      opacity: 0;
+      transform: translateX(-60px);
+    }
+
+    /* ── DECORATIVE BG ── */
+    .slide-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .slide-bg .circle {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.12;
+    }
+
+    /* ── SLIDE CONTENT ── */
+    .slide-content {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 1100px;
+    }
+
+    /* ── TYPOGRAPHY ── */
+    .kicker {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+      opacity: 0.9;
+    }
+
+    h1 {
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      font-size: clamp(1.6rem, 3vw, 2.6rem);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+
+    h3 {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--gold);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .subtitle {
+      font-size: clamp(1rem, 1.8vw, 1.3rem);
+      color: var(--gray);
+      font-weight: 300;
+      line-height: 1.6;
+      max-width: 680px;
+    }
+
+    .highlight { color: var(--gold); }
+    .highlight-teal { color: var(--teal); }
+
+    /* ── GOLD DIVIDER ── */
+    .divider {
+      width: 56px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--teal));
+      border-radius: 2px;
+      margin: 24px 0;
+    }
+
+    /* ── BADGE ── */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 14px;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .badge-olympic { background: rgba(245,200,66,.15); color: var(--gold); border: 1px solid rgba(245,200,66,.4); }
+    .badge-para    { background: rgba(0,180,216,.15);  color: var(--teal);  border: 1px solid rgba(0,180,216,.4); }
+    .badge-world   { background: rgba(240,244,255,.08); color: var(--white); border: 1px solid rgba(240,244,255,.2); }
+
+    /* ── OVERVIEW TABLE ── */
+    .overview-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .overview-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      padding: 20px 18px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .overview-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(245,200,66,0.3);
+    }
+
+    .overview-card .num {
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .overview-card .label {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+
+    .overview-card .en {
+      font-size: 0.72rem;
+      color: var(--gray);
+      font-style: italic;
+    }
+
+    .overview-card .badges {
+      margin-top: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+
+    .overview-card .accent-line {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .overview-card:hover .accent-line { opacity: 1; }
+
+    /* ── DETAIL LAYOUT ── */
+    .detail-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: start;
+    }
+
+    .detail-layout.full { grid-template-columns: 1fr; }
+
+    .detail-left {}
+    .detail-right {}
+
+    /* ── SPEC TABLE ── */
+    .spec-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 16px;
+    }
+
+    .spec-table th {
+      text-align: left;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gray);
+      padding: 8px 14px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .spec-table td {
+      padding: 10px 14px;
+      font-size: 0.9rem;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .spec-table tr:last-child td { border-bottom: none; }
+
+    .spec-table td:first-child {
+      font-weight: 600;
+      color: var(--gold-light);
+      white-space: nowrap;
+    }
+
+    .spec-table .check { color: var(--accent-green); font-size: 1.1rem; }
+    .spec-table .cross { color: rgba(255,255,255,0.25); font-size: 1.1rem; }
+
+    /* ── BULLET LIST ── */
+    .bullet-list {
+      list-style: none;
+      margin-top: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .bullet-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .bullet-list li::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--gold);
+      margin-top: 7px;
+      flex-shrink: 0;
+    }
+
+    .bullet-list .strong { font-weight: 700; color: var(--white); }
+    .bullet-list .sub { color: var(--gray); font-size: 0.85rem; }
+
+    /* ── ICON EMOJI ── */
+    .discipline-icon {
+      font-size: 2.8rem;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    /* ── COMBINED DISCIPLINES (slides 4-5) ── */
+    .combined-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+      margin-top: 28px;
+    }
+
+    .combined-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      padding: 22px 24px;
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+      transition: border-color 0.2s;
+    }
+
+    .combined-card:hover { border-color: rgba(0,180,216,0.35); }
+
+    .combined-card .icon { font-size: 2.2rem; flex-shrink: 0; }
+
+    .combined-card .info {}
+    .combined-card .info h3 { font-size: 0.72rem; margin-bottom: 4px; }
+    .combined-card .info .title { font-size: 1.05rem; font-weight: 700; margin-bottom: 6px; }
+    .combined-card .info p { font-size: 0.85rem; color: var(--gray); line-height: 1.5; }
+
+    /* ── BIG STAT ── */
+    .stat-row {
+      display: flex;
+      gap: 32px;
+      margin-top: 24px;
+      flex-wrap: wrap;
+    }
+
+    .stat-box {
+      background: rgba(245,200,66,0.08);
+      border: 1px solid rgba(245,200,66,0.2);
+      border-radius: 12px;
+      padding: 16px 24px;
+      min-width: 160px;
+    }
+
+    .stat-box .val {
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: var(--gold);
+      line-height: 1;
+    }
+
+    .stat-box .lbl {
+      font-size: 0.8rem;
+      color: var(--gray);
+      margin-top: 4px;
+    }
+
+    /* ── TIMELINE ── */
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-top: 20px;
+    }
+
+    .tl-item {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+    }
+
+    .tl-year {
+      font-weight: 700;
+      color: var(--gold);
+      font-size: 0.95rem;
+      min-width: 48px;
+      padding-top: 1px;
+    }
+
+    .tl-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--gold);
+      margin-top: 5px;
+      flex-shrink: 0;
+      box-shadow: 0 0 8px var(--gold);
+    }
+
+    .tl-text {
+      font-size: 0.9rem;
+      color: var(--gray);
+      line-height: 1.5;
+    }
+
+    .tl-text strong { color: var(--white); }
+
+    /* ── SLIDE 1: TITLE ── */
+    #slide-1 {
+      background: radial-gradient(ellipse 100% 80% at 70% 50%, rgba(0,119,168,0.25) 0%, transparent 70%),
+                  radial-gradient(ellipse 60% 60% at 20% 80%, rgba(245,200,66,0.12) 0%, transparent 60%),
+                  var(--navy);
+    }
+
+    #slide-1 .title-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    #slide-1 .wa-logo {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--teal);
+      border: 1px solid rgba(0,180,216,0.3);
+      padding: 5px 12px;
+      border-radius: 999px;
+    }
+
+    #slide-1 .title-main {
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      font-weight: 900;
+      line-height: 1.0;
+      letter-spacing: -0.03em;
+    }
+
+    #slide-1 .title-en {
+      font-size: clamp(1rem, 2vw, 1.5rem);
+      font-weight: 300;
+      color: var(--teal);
+      letter-spacing: 0.08em;
+      margin-top: 10px;
+      margin-bottom: 24px;
+    }
+
+    #slide-1 .title-desc {
+      font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+      color: var(--gray);
+      max-width: 560px;
+      line-height: 1.65;
+    }
+
+    .arrow-target {
+      position: absolute;
+      right: 100px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 220px;
+      height: 220px;
+      opacity: 0.18;
+    }
+
+    /* ── PROGRESS BAR ── */
+    .progress-bar {
+      position: fixed;
+      bottom: 0; left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--teal));
+      transition: width 0.4s ease;
+      z-index: 100;
+    }
+
+    /* ── NAVIGATION ── */
+    .nav {
+      position: fixed;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      z-index: 100;
+      background: rgba(10,22,40,0.7);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 999px;
+      padding: 10px 24px;
+    }
+
+    .nav-btn {
+      background: none;
+      border: none;
+      color: var(--white);
+      cursor: pointer;
+      font-size: 1.1rem;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .nav-btn:hover { background: rgba(245,200,66,0.15); color: var(--gold); }
+    .nav-btn:disabled { opacity: 0.25; cursor: default; }
+    .nav-btn:disabled:hover { background: none; color: var(--white); }
+
+    .nav-dots {
+      display: flex;
+      gap: 8px;
+    }
+
+    .nav-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+      border: none;
+    }
+
+    .nav-dot.active {
+      background: var(--gold);
+      transform: scale(1.3);
+    }
+
+    .nav-counter {
+      font-size: 0.75rem;
+      color: var(--gray);
+      min-width: 48px;
+      text-align: center;
+    }
+
+    /* ── SLIDE NUMBER ── */
+    .slide-number {
+      position: fixed;
+      top: 28px;
+      right: 36px;
+      font-size: 0.72rem;
+      color: var(--gray);
+      letter-spacing: 0.1em;
+      z-index: 100;
+    }
+
+    /* ── SOURCE FOOTER ── */
+    .source-note {
+      position: fixed;
+      bottom: 80px;
+      right: 36px;
+      font-size: 0.65rem;
+      color: rgba(136,153,187,0.5);
+      letter-spacing: 0.05em;
+      z-index: 100;
+    }
+
+    /* ── KEYBOARD HINT ── */
+    .key-hint {
+      position: fixed;
+      top: 28px;
+      left: 36px;
+      font-size: 0.65rem;
+      color: rgba(136,153,187,0.4);
+      z-index: 100;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .overview-grid { grid-template-columns: repeat(2, 1fr); }
+      .detail-layout { grid-template-columns: 1fr; }
+      .combined-grid { grid-template-columns: 1fr; }
+      .slide { padding: 40px 32px; }
+      #slide-1 .title-main { font-size: 2.4rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="slideshow" id="slideshow">
+
+  <!-- ═══════════════════════════════════════════
+       SLIDE 1 — TITLE
+  ═══════════════════════════════════════════ -->
+  <div class="slide active" id="slide-1">
+    <!-- SVG archery target decoration -->
+    <svg class="arrow-target" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="100" cy="100" r="95" fill="none" stroke="white" stroke-width="2"/>
+      <circle cx="100" cy="100" r="76" fill="none" stroke="white" stroke-width="2"/>
+      <circle cx="100" cy="100" r="57" fill="none" stroke="white" stroke-width="2"/>
+      <circle cx="100" cy="100" r="38" fill="none" stroke="white" stroke-width="2"/>
+      <circle cx="100" cy="100" r="19" fill="none" stroke="white" stroke-width="2"/>
+      <line x1="100" y1="5" x2="100" y2="195" stroke="white" stroke-width="1" opacity="0.5"/>
+      <line x1="5" y1="100" x2="195" y2="100" stroke="white" stroke-width="1" opacity="0.5"/>
+    </svg>
+
+    <div class="slide-content">
+      <div class="title-eyebrow">
+        <span class="wa-logo">🏹 World Archery</span>
+        <span class="kicker" style="margin:0">官方競技項目</span>
+      </div>
+
+      <div class="title-main">
+        射箭運動<br>的<span class="highlight">種類</span>
+      </div>
+      <div class="title-en">Archery Disciplines</div>
+
+      <p class="title-desc">
+        世界射箭聯合會（World Archery）承認並規範
+        <strong style="color:var(--white)">8 種</strong>射箭競技項目，
+        從奧運殿堂到雪地越野，涵蓋各種精彩形式。
+      </p>
+
+      <div class="stat-row" style="margin-top:36px">
+        <div class="stat-box">
+          <div class="val">8</div>
+          <div class="lbl">官方競技項目</div>
+        </div>
+        <div class="stat-box">
+          <div class="val">1931</div>
+          <div class="lbl">首屆世界錦標賽</div>
+        </div>
+        <div class="stat-box">
+          <div class="val">1972</div>
+          <div class="lbl">射箭重返奧運</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       SLIDE 2 — 八種項目總覽
+  ═══════════════════════════════════════════ -->
+  <div class="slide" id="slide-2">
+    <div class="slide-content">
+      <p class="kicker">World Archery 承認的八種項目</p>
+      <h2>競技項目一覽</h2>
+      <div class="divider"></div>
+
+      <div class="overview-grid">
+
+        <div class="overview-card">
+          <span class="discipline-icon">🎯</span>
+          <div class="label">定靶射箭</div>
+          <div class="en">Target Archery</div>
+          <div class="badges">
+            <span class="badge badge-olympic">🥇 奧運</span>
+            <span class="badge badge-para">♿ 帕運</span>
+          </div>
+          <div class="accent-line"></div>
+        </div>
+
+        <div class="overview-card">
+          <span class="discipline-icon">🏛️</span>
+          <div class="label">室內射箭</div>
+          <div class="en">Indoor Archery</div>
+          <div class="badges">
+            <span class="badge badge-world">🌍 世界賽</span>
+          </div>
+          <div class="accent-line"></div>
+        </div>
+
+        <div class="overview-card">
+          <span class="discipline-icon">🌲</span>
+          <div class="label">野外射箭</div>
+          <div class="en">Field Archery</div>
+          <div class="badges">
+            <span class="badge badge-world">🌍 世界賽</span>
+          </div>
+          <div class="accent-line"></div>
+        </div>
+
+        <div class="overview-card">
+          <span class="discipline-icon">♿</span>
+          <div class="label">殘障射箭</div>
+          <div class="en">Para Archery</div>
+          <div class="badges">
+            <span class="badge badge-para">♿ 帕運</span>
+          </div>
+          <div class="accent-line"></div>
+        </div>
+
+        <div class="overview-card">
+          <span class="discipline-icon">🦌</span>
+          <div class="label">3D 射箭</div>
+          <div class="en">3D Archery</div>
+          <div class="badges">
+            <span class="badge badge-world">🌍 世界賽</span>
+          </div>
+          <div class="accent-line"></div>
+        </div>
+
+        <div class="overview-card">
+          <span class="discipline-icon">🚀</span>
+          <div class="label">飛行射箭</div>
+          <div class="en">Flight Archery</div>
+          <div class="badges">
+            <span class="badge badge-world">🌍 世界賽</span>
+          </div>
+          <div class="accent-line"></div>
+        </div>
+
+        <div class="overview-card">
+          <span class="discipline-icon">⛷️</span>
+          <div class="label">滑雪射箭</div>
+          <div class="en">Ski Archery</div>
+          <div class="badges">
+            <span class="badge badge-world">🌍 世界賽</span>
+          </div>
+          <div class="accent-line"></div>
+        </div>
+
+        <div class="overview-card">
+          <span class="discipline-icon">🏃</span>
+          <div class="label">越野射箭</div>
+          <div class="en">Run Archery</div>
+          <div class="badges">
+            <span class="badge badge-world">🌍 世界賽</span>
+          </div>
+          <div class="accent-line"></div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       SLIDE 3 — 定靶射箭 (Target Archery)
+  ═══════════════════════════════════════════ -->
+  <div class="slide" id="slide-3">
+    <div class="slide-content">
+      <p class="kicker">最主流・奧運核心項目</p>
+      <div style="display:flex;align-items:center;gap:16px;margin-bottom:8px">
+        <span style="font-size:3rem">🎯</span>
+        <div>
+          <h2>定靶射箭</h2>
+          <div style="font-size:1rem;color:var(--teal);font-weight:300">Target Archery</div>
+        </div>
+      </div>
+      <div class="divider"></div>
+
+      <div class="detail-layout">
+        <div class="detail-left">
+          <h3>標準距離規格</h3>
+          <table class="spec-table">
+            <thead>
+              <tr>
+                <th>弓種</th>
+                <th>戶外距離</th>
+                <th>靶面</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>反曲弓</td>
+                <td><strong>70 公尺</strong></td>
+                <td>10 環圓形靶</td>
+              </tr>
+              <tr>
+                <td>複合弓</td>
+                <td><strong>50 公尺</strong></td>
+                <td>10 環圓形靶</td>
+              </tr>
+              <tr>
+                <td>1440 Round</td>
+                <td>30–90 公尺</td>
+                <td>多距格式</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="detail-right">
+          <h3>重要里程碑</h3>
+          <div class="timeline">
+            <div class="tl-item">
+              <span class="tl-year">1583</span>
+              <div class="tl-dot"></div>
+              <div class="tl-text">最早有紀錄的定靶射箭比賽<br><strong>英國芬斯伯里公園</strong></div>
+            </div>
+            <div class="tl-item">
+              <span class="tl-year">1931</span>
+              <div class="tl-dot"></div>
+              <div class="tl-text"><strong>首屆世界射箭錦標賽</strong><br>每兩年舉辦一次</div>
+            </div>
+            <div class="tl-item">
+              <span class="tl-year">1972</span>
+              <div class="tl-dot"></div>
+              <div class="tl-text"><strong>射箭重返奧運</strong><br>採用反曲弓形式沿用至今</div>
+            </div>
+            <div class="tl-item">
+              <span class="tl-year">每年</span>
+              <div class="tl-dot"></div>
+              <div class="tl-text"><strong>射箭世界盃（World Cup）</strong><br>年度巡迴賽，4–9 月</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       SLIDE 4 — 室內 & 野外
+  ═══════════════════════════════════════════ -->
+  <div class="slide" id="slide-4">
+    <div class="slide-content">
+      <p class="kicker">定靶的延伸變體</p>
+      <h2>室內射箭 <span style="color:var(--gray);font-weight:300">與</span> 野外射箭</h2>
+      <div class="divider"></div>
+
+      <div class="detail-layout">
+
+        <div class="detail-left">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+            <span style="font-size:2rem">🏛️</span>
+            <div>
+              <div style="font-weight:700;font-size:1.1rem">室內射箭</div>
+              <div style="font-size:0.8rem;color:var(--teal)">Indoor Archery</div>
+            </div>
+          </div>
+          <ul class="bullet-list">
+            <li><span>標準距離 <span class="strong">18 公尺</span>（反曲弓、複合弓均適用）</span></li>
+            <li><span>使用較小版本的黃紅藍黑白靶面</span></li>
+            <li><span>冬季賽季：<span class="strong">10 月 → 翌年 3 月</span>（與戶外互補）</span></li>
+            <li><span>2018 年後改為<span class="strong">室內世界系列賽</span>，開放大眾參與</span></li>
+          </ul>
+        </div>
+
+        <div class="detail-right">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+            <span style="font-size:2rem">🌲</span>
+            <div>
+              <div style="font-weight:700;font-size:1.1rem">野外射箭</div>
+              <div style="font-size:0.8rem;color:var(--teal)">Field Archery</div>
+            </div>
+          </div>
+          <ul class="bullet-list">
+            <li><span>在<span class="strong">自然地形</span>中沿路線射擊，模擬戶外打獵情境</span></li>
+            <li><span>靶面為<span class="strong">黃黑色</span>（與定靶靶面不同）</span></li>
+            <li><span>距離範圍：<span class="strong">5 至 60 公尺</span>，大小與角度各異</span></li>
+            <li>
+              <span>距離形式兩種：
+                <br><span class="sub">✦ 標記（Marked）— 射手知道距離</span>
+                <br><span class="sub">✦ 未標記（Unmarked）— 射手不知距離</span>
+              </span>
+            </li>
+            <li><span>適用弓種：反曲弓、複合弓、裸弓</span></li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       SLIDE 5 — 殘障 & 3D & 飛行
+  ═══════════════════════════════════════════ -->
+  <div class="slide" id="slide-5">
+    <div class="slide-content">
+      <p class="kicker">多元競技形式</p>
+      <h2>殘障射箭、3D 射箭、飛行射箭</h2>
+      <div class="divider"></div>
+
+      <div class="combined-grid">
+        <div class="combined-card">
+          <div class="icon">♿</div>
+          <div class="info">
+            <h3>帕拉林匹克項目</h3>
+            <div class="title">殘障射箭 Para Archery</div>
+            <p>為肢體或視覺障礙運動員設立的分級競賽。<br>
+            分級：<strong>PI1 / PI2 / W1 / VI1 / VI2</strong><br>
+            自 <strong>1960 年</strong>起為帕運核心項目。<br>
+            允許使用輔助器材（輪椅、改裝放箭器等）。</p>
+          </div>
+        </div>
+
+        <div class="combined-card">
+          <div class="icon">🦌</div>
+          <div class="info">
+            <h3>立體靶射箭</h3>
+            <div class="title">3D 射箭 3D Archery</div>
+            <p>在自然或人工地形中射擊<strong>三維立體動物造型靶</strong>（泡綿製）。<br>
+            距離通常<strong>未標記</strong>，考驗射手的距離判斷力。<br>
+            常用弓種：本能弓（Instinctive Bow）、長弓（Longbow）。</p>
+          </div>
+        </div>
+
+        <div class="combined-card" style="grid-column:1/-1">
+          <div class="icon">🚀</div>
+          <div class="info">
+            <h3>距離競賽</h3>
+            <div class="title">飛行射箭 Flight Archery</div>
+            <p>比的是<strong>箭矢的飛行距離</strong>，而非精準度。無靶面，純粹比誰射得最遠。<br>
+            依弓種與磅數分為多個器材組別。是射箭運動中最考驗弓具效能與箭矢設計的項目。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       SLIDE 6 — 滑雪 & 越野
+  ═══════════════════════════════════════════ -->
+  <div class="slide" id="slide-6">
+    <div class="slide-content">
+      <p class="kicker">射箭 × 運動的跨界結合</p>
+      <h2>滑雪射箭 & 越野射箭</h2>
+      <div class="divider"></div>
+
+      <div class="detail-layout">
+
+        <div class="detail-left" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:18px;padding:28px 28px;">
+          <span style="font-size:3rem;display:block;margin-bottom:12px">⛷️</span>
+          <div style="font-size:0.72rem;font-weight:700;letter-spacing:0.1em;color:var(--gold);text-transform:uppercase;margin-bottom:6px">冬季項目</div>
+          <div style="font-size:1.3rem;font-weight:700;margin-bottom:6px">滑雪射箭</div>
+          <div style="font-size:0.85rem;color:var(--teal);margin-bottom:16px">Ski Archery</div>
+          <ul class="bullet-list">
+            <li><span>結合<strong>越野滑雪</strong>與射箭，類似冬季兩項（Biathlon）</span></li>
+            <li><span>射手以越野滑雪方式在雪地移動</span></li>
+            <li><span>在指定站點停下，完成射箭後繼續滑行</span></li>
+            <li><span>在<strong>冬季</strong>舉行</span></li>
+          </ul>
+        </div>
+
+        <div class="detail-right" style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:18px;padding:28px 28px;">
+          <span style="font-size:3rem;display:block;margin-bottom:12px">🏃</span>
+          <div style="font-size:0.72rem;font-weight:700;letter-spacing:0.1em;color:var(--teal);text-transform:uppercase;margin-bottom:6px">夏季項目</div>
+          <div style="font-size:1.3rem;font-weight:700;margin-bottom:6px">越野射箭</div>
+          <div style="font-size:0.85rem;color:var(--teal);margin-bottom:16px">Run Archery</div>
+          <ul class="bullet-list">
+            <li><span>結合<strong>跑步</strong>與射箭，是夏季版「射箭兩項」</span></li>
+            <li><span>射手以跑步方式在路線上移動</span></li>
+            <li><span>在指定站點停下，完成射箭後繼續跑</span></li>
+            <li><span>在<strong>夏季</strong>舉行</span></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div style="margin-top:24px;padding:16px 24px;background:rgba(245,200,66,0.06);border:1px solid rgba(245,200,66,0.15);border-radius:12px;font-size:0.88rem;color:var(--gray)">
+        💡 <strong style="color:var(--white)">共同精神：</strong>
+        兩者都要求射手在體能消耗後仍能保持射箭的穩定度與精準度，考驗身心協調能力。
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       SLIDE 7 — SUMMARY
+  ═══════════════════════════════════════════ -->
+  <div class="slide" id="slide-7">
+    <div class="slide-content" style="text-align:center;display:flex;flex-direction:column;align-items:center">
+      <p class="kicker" style="text-align:center">總結</p>
+      <h2 style="text-align:center">8 種項目，<span class="highlight">一個箭靶精神</span></h2>
+      <div class="divider" style="margin:24px auto"></div>
+
+      <table class="spec-table" style="max-width:720px;text-align:left">
+        <thead>
+          <tr>
+            <th>項目</th>
+            <th>英文</th>
+            <th style="text-align:center">奧運</th>
+            <th style="text-align:center">帕運</th>
+            <th>核心特色</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>🎯 定靶射箭</td>
+            <td style="color:var(--gray)">Target</td>
+            <td style="text-align:center" class="check">✓</td>
+            <td style="text-align:center" class="check">✓</td>
+            <td style="color:var(--gray)">固定距離，70m / 50m</td>
+          </tr>
+          <tr>
+            <td>🏛️ 室內射箭</td>
+            <td style="color:var(--gray)">Indoor</td>
+            <td style="text-align:center" class="cross">—</td>
+            <td style="text-align:center" class="cross">—</td>
+            <td style="color:var(--gray)">18m 室內，冬季賽季</td>
+          </tr>
+          <tr>
+            <td>🌲 野外射箭</td>
+            <td style="color:var(--gray)">Field</td>
+            <td style="text-align:center" class="cross">—</td>
+            <td style="text-align:center" class="cross">—</td>
+            <td style="color:var(--gray)">5–60m，自然地形路線</td>
+          </tr>
+          <tr>
+            <td>♿ 殘障射箭</td>
+            <td style="color:var(--gray)">Para</td>
+            <td style="text-align:center" class="cross">—</td>
+            <td style="text-align:center" class="check">✓</td>
+            <td style="color:var(--gray)">5 分級，肢體/視覺障礙</td>
+          </tr>
+          <tr>
+            <td>🦌 3D 射箭</td>
+            <td style="color:var(--gray)">3D Archery</td>
+            <td style="text-align:center" class="cross">—</td>
+            <td style="text-align:center" class="cross">—</td>
+            <td style="color:var(--gray)">立體動物靶，未標記距離</td>
+          </tr>
+          <tr>
+            <td>🚀 飛行射箭</td>
+            <td style="color:var(--gray)">Flight</td>
+            <td style="text-align:center" class="cross">—</td>
+            <td style="text-align:center" class="cross">—</td>
+            <td style="color:var(--gray)">比距離，越遠越好</td>
+          </tr>
+          <tr>
+            <td>⛷️ 滑雪射箭</td>
+            <td style="color:var(--gray)">Ski Archery</td>
+            <td style="text-align:center" class="cross">—</td>
+            <td style="text-align:center" class="cross">—</td>
+            <td style="color:var(--gray)">越野滑雪 + 射箭，冬季</td>
+          </tr>
+          <tr>
+            <td>🏃 越野射箭</td>
+            <td style="color:var(--gray)">Run Archery</td>
+            <td style="text-align:center" class="cross">—</td>
+            <td style="text-align:center" class="cross">—</td>
+            <td style="color:var(--gray)">跑步 + 射箭，夏季</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p style="margin-top:24px;font-size:0.8rem;color:var(--gray)">
+        資料來源：World Archery 官方網站 ／ 射箭 LLM 知識庫
+      </p>
+    </div>
+  </div>
+
+</div><!-- /slideshow -->
+
+<!-- ── UI ── -->
+<div class="progress-bar" id="progress"></div>
+<div class="slide-number" id="slideNum">1 / 7</div>
+<div class="key-hint">← → 或 空白鍵 切換投影片</div>
+<div class="source-note">世界射箭聯合會 worldarchery.sport</div>
+
+<nav class="nav">
+  <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)" disabled>&#8592;</button>
+  <div class="nav-dots" id="dots"></div>
+  <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">&#8594;</button>
+</nav>
+
+<script>
+  const TOTAL = 7;
+  let current = 0;
+
+  // Build dots
+  const dotsContainer = document.getElementById('dots');
+  for (let i = 0; i < TOTAL; i++) {
+    const btn = document.createElement('button');
+    btn.className = 'nav-dot' + (i === 0 ? ' active' : '');
+    btn.onclick = () => goTo(i);
+    dotsContainer.appendChild(btn);
+  }
+
+  function updateUI() {
+    document.getElementById('slideNum').textContent = `${current + 1} / ${TOTAL}`;
+    document.getElementById('progress').style.width = `${((current + 1) / TOTAL) * 100}%`;
+    document.getElementById('prevBtn').disabled = current === 0;
+    document.getElementById('nextBtn').disabled = current === TOTAL - 1;
+    document.querySelectorAll('.nav-dot').forEach((d, i) => {
+      d.classList.toggle('active', i === current);
+    });
+  }
+
+  function goTo(idx) {
+    if (idx < 0 || idx >= TOTAL || idx === current) return;
+
+    const slides = document.querySelectorAll('.slide');
+    slides[current].classList.remove('active');
+    slides[current].classList.add('exit');
+    setTimeout(() => slides[current === idx ? idx : current].classList.remove('exit'), 550);
+
+    current = idx;
+    slides[current].classList.add('active');
+    updateUI();
+  }
+
+  function changeSlide(dir) { goTo(current + dir); }
+
+  // Keyboard navigation
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); changeSlide(1); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); changeSlide(-1); }
+  });
+
+  updateUI();
+</script>
+</body>
+</html>
